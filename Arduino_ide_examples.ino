@@ -29,6 +29,16 @@ Serial.println("WIFI_CONNECTION");
    }
    Serial.printf("Success");
    udp.begin(WiFi.localIP(), 7000); //Delete if without UDP
-
-  
 }
+
+// ================!PYTHON!================
+integr = [0]*10
+prev_err = 0
+last_ind = 0
+def computePID(inputs, setpoint, kp, ki, kd, dt):
+  global integr, prev_err, last_ind
+  err = setpoint - inputs
+  integr[last_ind] = err*dt
+  D = (err - prev_err)/dt
+  prev_err = err
+  return err*kp + sum(integr)*ki + D*kd
